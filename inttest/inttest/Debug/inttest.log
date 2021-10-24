@@ -1,0 +1,3 @@
+﻿  inttest.cpp
+D:\Projects\Visual Studio 2019\inttest\inttest\inttest.cpp(21): error C4716: f_for: должна возвращать значение
+D:\Projects\Visual Studio 2019\inttest\inttest\inttest.cpp(36): error C4700: использована неинициализированная локальная переменная "i"
