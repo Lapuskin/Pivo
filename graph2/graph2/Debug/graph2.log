@@ -1,0 +1,4 @@
+﻿  graph2.cpp
+D:\Projects\Visual Studio 2019\graph2\graph2\graph2.cpp(18,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\Projects\Visual Studio 2019\graph2\graph2\graph2.cpp(144,13): warning C4101: u: неиспользованная локальная переменная
+  graph2.vcxproj -> D:\Projects\Visual Studio 2019\graph2\Debug\graph2.exe

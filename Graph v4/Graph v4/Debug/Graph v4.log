@@ -1,0 +1,6 @@
+﻿  Graph v4.cpp
+D:\Projects\Visual Studio 2019\Graph v4\Graph v4\Graph v4.cpp(116,35): warning C4018: <: несоответствие типов со знаком и без знака
+D:\Projects\Visual Studio 2019\Graph v4\Graph v4\Graph v4.cpp(126,35): warning C4018: <: несоответствие типов со знаком и без знака
+D:\Projects\Visual Studio 2019\Graph v4\Graph v4\Graph v4.cpp(98,17): warning C4101: end: неиспользованная локальная переменная
+D:\Projects\Visual Studio 2019\Graph v4\Graph v4\Graph v4.cpp(107,13): warning C4101: u: неиспользованная локальная переменная
+  Graph v4.vcxproj -> D:\Projects\Visual Studio 2019\Graph v4\Debug\Graph v4.exe
