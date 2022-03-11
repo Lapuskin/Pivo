@@ -1,0 +1,4 @@
+﻿  Header.cpp
+D:\Projects\Visual Studio 2019\LIb\LIb\Header.cpp(11,12): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+D:\Projects\Visual Studio 2019\LIb\LIb\Header.cpp(11,79): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+  LIb.vcxproj -> D:\Projects\Visual Studio 2019\LIb\Debug\LIb.exe
