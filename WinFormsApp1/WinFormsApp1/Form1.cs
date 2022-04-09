@@ -31,25 +31,40 @@ namespace WinFormsApp1
             public bool Comparison(string fullName, string dateTwo)
             {
                 string[] names = fullName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (fstName == names[0] && lstName == names[1] && fathName == names[2] && date == dateTwo)
-                    return true;
+                if (fstName == names[0])
+                {
+                    if (lstName == names[1])
+                    {
+                        if (fathName == names[2])
+                        {
+                            if (date == dateTwo)
+                                return true;
+                            else
+                                return false;
+                        }
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
+                }
                 else
                     return false;
             } 
-            public void Write(Excel.Application ExcelApp, int i)
-            {
-                Excel.Workbooks ExelWorkbooks = ExcelApp.Workbooks;
-                Excel.Workbook ExelWorkbookRes = ExelWorkbooks[1];
-                Excel.Worksheet ExelSheetRes = (Excel.Worksheet)ExelWorkbookRes.Sheets[1];
-                ExelSheetRes.Cells[i, 2].Value2 = fstName;
-                ExelSheetRes.Cells[i, 3].Value2 = lstName;
-                ExelSheetRes.Cells[i, 4].Value2 = fathName;
-                ExelSheetRes.Cells[i, 5].Value2 = date;
+            public void Write(Word.Application WordAppRes, int i)
+            {                   
+                WordAppRes.Documents[1].Tables[1].Rows.Add();
+                WordAppRes.Documents[1].Tables[1].Cell(i, 1).Range.Text = i.ToString();
+                WordAppRes.Documents[1].Tables[1].Cell(i, 2).Range.Text = fstName;
+                WordAppRes.Documents[1].Tables[1].Cell(i, 3).Range.Text = lstName;
+                WordAppRes.Documents[1].Tables[1].Cell(i, 4).Range.Text = fathName;
+                WordAppRes.Documents[1].Tables[1].Cell(i, 5).Range.Text = date;
             }
         }
 
         private Excel.Application ExcelApp;
         private Word.Application WordApp;
+        private Word.Application WordAppRes = new Word.Application();
         private Human hum = new Human();
         
         public Form1()
@@ -67,20 +82,22 @@ namespace WinFormsApp1
 
         private void CreateTableRes()
         {
-            ExcelApp = new Excel.Application();
-            ExcelApp.Visible = true;
-            ExcelApp.SheetsInNewWorkbook = 1;
-            ExcelApp.DisplayAlerts = true;
+            object start = 0, end = 0;
+            Word.Document WordRes = WordAppRes.Documents.Add();
+            Word.Range TableLocation = WordRes.Range(ref start, ref end);
+            WordRes.Tables.Add(TableLocation, 1, 5);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             CreateTableRes();
             Excel.Worksheet ExcelName = OpenExcel();
-            Word.Table WordName = OpenWorld();
+            Word.Table WordName = OpenWord();
             ReadExel(hum, ExcelName, WordName);
             SaveRes();
             MessageBox.Show("Успех! Ищите файл на рабочем столе.");
+            WordApp.Quit();
+            WordAppRes.Quit();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -110,30 +127,30 @@ namespace WinFormsApp1
         {
             for (int i = 2; i < ObjSheet.UsedRange.Rows.Count + 1; i++)
             {
-                hum.Init(ObjSheet.Cells[i, 2].Value2, ObjSheet.Cells[i, 3].Value2, ObjSheet.Cells[i, 4].Value2, ObjSheet.Cells[i, 5].Value2);
+                hum.Init(ObjSheet.Cells[i, 2].Text, ObjSheet.Cells[i, 3].Text, ObjSheet.Cells[i, 4].Text, ObjSheet.Cells[i, 5].Text);
                 ReadWord(hum, ObjWord);
             }
+            ExcelApp.Quit();
         }
-        private Word.Table OpenWorld()
+        private Word.Table OpenWord()
         {
             WordApp = new Word.Application();
             Object FileName = openFileDialog2.FileName;
             WordApp.Documents.Open(ref FileName);
             Word.Document ObjDoc = WordApp.ActiveDocument;
-            Word.Table ObjTable = ObjDoc.Tables[1];
+            Word.Table ObjTable = ObjDoc.Tables[3];
             return ObjTable;
         }
         private void ReadWord(Human hum, Word.Table ObjTable)
         {
             int NumberOfMans = 1;
-            for (
-                int i = 2; i < ObjTable.Columns.Count + 1; i++)
+            for (int i = 2; i < ObjTable.Rows.Count + 1; i++)
             {
                 if (ObjTable.Cell(i, 1).Range.Text.Trim('\a', '\r', '\n', '\t') == NumberOfMans.ToString())
                 {
                     if (hum.Comparison(ObjTable.Cell(i, 2).Range.Text.Trim('\a', '\r', '\n', '\t'), ObjTable.Cell(i, 3).Range.Text.Trim('\a', '\r', '\n', '\t')))
                     {
-                        hum.Write(ExcelApp, Convert.ToInt32(NumberOfMans));
+                        hum.Write(WordAppRes, Convert.ToInt32(NumberOfMans));
                     }
                     Convert.ToInt32(NumberOfMans);
                     NumberOfMans++;
@@ -143,12 +160,9 @@ namespace WinFormsApp1
 
         private void SaveRes()
         {
-            Excel.Workbooks ExelWorkbooks = ExcelApp.Workbooks;
-            Excel.Workbook ExelWorkbookRes = ExelWorkbooks[1];
-            ExcelApp.DefaultSaveFormat = Excel.XlFileFormat.xlExcel9795;
-            ExcelApp.DisplayAlerts = true;
-            ExelWorkbookRes.Saved = true;
-            ExelWorkbookRes.Save();
+            Word.Document WordRes = WordAppRes.Documents[1];
+            object fileName = @"D:\Resultit.docx";
+            WordRes.SaveAs(ref fileName);
         }
         private void textBox3_TextChanged(object sender, EventArgs e)
         {

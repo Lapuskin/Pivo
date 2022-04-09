@@ -18,3 +18,4 @@ D:\Projects\Visual Studio 2019\WinFormsApp1\WinFormsApp1\obj\Debug\net5.0-window
 D:\Projects\Visual Studio 2019\WinFormsApp1\WinFormsApp1\obj\Debug\net5.0-windows\Interop.Microsoft.Office.Interop.Excel.dll
 D:\Projects\Visual Studio 2019\WinFormsApp1\WinFormsApp1\obj\Debug\net5.0-windows\WinFormsApp1.csproj.ResolveComReference.cache
 D:\Projects\Visual Studio 2019\WinFormsApp1\WinFormsApp1\obj\Debug\net5.0-windows\Interop.Microsoft.Office.Interop.Word.dll
+D:\Projects\Visual Studio 2019\WinFormsApp1\WinFormsApp1\obj\Debug\net5.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
